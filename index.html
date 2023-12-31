@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emoji-Storage</title>
+    <style>
+
+        /* GENERAL */
+        body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #3323c4;
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+
+
+
+        /* EMOJI-GRID */
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            padding: 10px;
+            justify-content: center;
+            width: calc(100% - 200px);
+            margin: 0 auto;
+        }
+
+        .emoji-grid img {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0;
+        }
+
+
+
+
+
+
+
+        /* INPUT-FIELD */
+        .inputGroup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1em 0;
+            width: calc(100% - 200px);
+            max-width: calc(100% - 200px);
+            box-sizing: border-box;
+        }
+
+
+        .inputGroup input {
+            font-size: 100%;
+            padding: 0.8em;
+            outline: none;
+            border: 2px solid rgb(200, 200, 200);
+            background-color: transparent;
+            border-radius: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+
+        .inputGroup label {
+            font-size: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0.8em;
+            margin-left: 0.5em;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            color: rgb(100, 100, 100);
+        }
+
+
+        .inputGroup :is(input:focus, input:valid)~label {
+            transform: translateY(-50%) scale(.9);
+            margin: 0em;
+            margin-left: 1.3em;
+            padding: 0.4em;
+            background-color: #e8e8e8;
+        }
+
+        .inputGroup :is(input:focus, input:valid) {
+            border-color: #3323c4;
+        }
+        /* center the placeholder text in input field */
+        .inputGroup input::placeholder {
+            text-align: center;
+        }
+
+
+
+
+
+        /* BUTTONS */
+        .button_menu {
+            padding: 1.3em 3em;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 500;
+            color: #000;
+            background-color: #fff;
+            border-radius: 45px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease 0s;
+            cursor: pointer;
+            outline: none;
+            border-color: #3323c4;
+        }
+
+        .button_menu:hover {
+            background-color: #3323c4;
+            box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+            color: #fff;
+            transform: translateY(-7px);
+        }
+
+        .button_menu:active {
+            transform: translateY(-1px);
+            background-color: #584bd1;
+        }
+
+
+        /* COPY-BUTTON */
+        .copy-link-button{
+            padding: 0.5em 1.5em;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 500;
+            color: #000;
+            background-color: #fff;
+            border-radius: 45px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease 0s;
+            cursor: pointer;
+            outline: none;
+            border-color: #3323c4
+        }
+
+        .copy-link-button:hover {
+            background-color: #3323c4;
+            box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+            color: #fff;
+            transform: translateY(-7px);
+        }
+
+        .copy-link-button:active {
+            transform: translateY(-1px);
+            background-color: #584bd1;
+        }
+
+
+        /* DELETE-BUTTON */
+        .delete-button {
+            padding: 0.5em 1.5em;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 500;
+            color: #000;
+            background-color: #fff;
+            border-radius: 45px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease 0s;
+            cursor: pointer;
+            outline: none;
+            border-color: #c42323
+        }
+
+        .delete-button:hover {
+            background-color: #c42323;
+            box-shadow: 0px 15px 20px rgba(229, 46, 46, 0.4);
+            color: #fff;
+            transform: translateY(-7px);
+            border-color: #c42323
+        }
+
+        .delete-button:active {
+            transform: translateY(-1px);
+            background-color: #d14b4b;
+        }
+        
+
+
+
+        /* SPACE BETWEEN LINES AND FONT*/
+        .inputGroup, .emoji-grid {
+            margin-top: 20px; /* Hier wird der Abstand zwischen den Input-Elementen und der Emoji-Galerie erhöht */
+        }
+
+        .button_menu, .copy-link-button, .delete-button {
+            margin-top: 15px; /* Hier wird der Abstand zwischen den Buttons erhöht */
+        }
+
+        body, h1, .inputGroup, .inputGroup input, .inputGroup label, .button_menu, .copy-link-button, .delete-button {
+            font-family: 'Segoe UI', sans-serif;
+            /* more elements here if required... */
+        }
+
+    </style>
+</head>
+
+
+<body>
+    <h1>Emoji Collection</h1>
+
+    <div class="main-container">
+        <div class="inputGroup">
+            <input type="text" id="grafikLink" placeholder="Enter Discord Emoji Link (e.g. https://cdn.discordapp.com/emojis/1159049495519186975.webp?size=96&quality=lossless)">
+            <button class="button_menu" onclick="addImage()">Add Emoji</button>
+        </div>
+    
+        <div>
+            <button class="button_menu" onclick="exportImages()">Export</button>
+            <label for="importFile" class="button_menu">Browse</label>
+            <input type="file" id="importFile" accept=".json" style="display:none;">
+            <button class="button_menu" onclick="importImages()">Import</button>
+        </div>
+
+        <div>
+            <button class="delete-button" onclick="deleteAllImages()">Delete all Images (no confirmation window will appear)</button>
+        </div>
+
+        <div class="emoji-grid" id="emojiGalerie">
+        </div>
+    </div>
+
+
+    
+
+    <div>
+        <h2></h2>  <!-- Place maker a the end of site -->
+    </div>
+
+
+
+    <script>
+        function navigateToExamples() {
+            window.location.href = 'emoji-examples(please_change_extension_to_json).txt';
+        }
+
+
+        function addImage() {
+            const grafikLink = document.getElementById('grafikLink').value;
+            if (grafikLink) {
+                const emojiGalerie = document.getElementById('emojiGalerie');
+
+                const emoji = document.createElement('img');
+                emoji.src = grafikLink;
+
+                const a = document.createElement('a');
+                a.href = grafikLink;
+                a.target = "_blank";
+                a.appendChild(emoji);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = "Delete";
+                deleteButton.className = "delete-button";
+                deleteButton.onclick = function() {
+                    emojiGalerie.removeChild(container);
+                }
+
+                const copyLinkButton = document.createElement('button');
+                copyLinkButton.textContent = "Copy URL";
+                copyLinkButton.className = "copy-link-button";
+                copyLinkButton.onclick = function() {
+                    copyToClipboard(grafikLink);
+                }
+
+                const container = document.createElement('div');
+                container.appendChild(a);
+                container.appendChild(deleteButton);
+                container.appendChild(copyLinkButton);
+
+                emojiGalerie.appendChild(container);
+                document.getElementById('grafikLink').value = '';
+            }
+        }
+
+
+        function copyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+        }
+
+
+        function exportImages() {
+            const imageContainers = document.querySelectorAll('#emojiGalerie > div');
+            const imageLinks = [];
+            imageContainers.forEach(container => {
+                const a = container.querySelector('a');
+                if (a) {
+                    imageLinks.push(a.href);
+                }
+            });
+            const json = JSON.stringify(imageLinks);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'images.json';
+            a.click();
+        }
+
+
+        function importImages() {
+            const importFile = document.getElementById('importFile');
+            const file = importFile.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const json = event.target.result;
+                    const imageLinks = JSON.parse(json);
+                    const emojiGalerie = document.getElementById('emojiGalerie');
+                    imageLinks.forEach(link => {
+                        const emoji = document.createElement('img');
+                        emoji.src = link;
+
+                        const a = document.createElement('a');
+                        a.href = link;
+                        a.target = "_blank";
+                        a.appendChild(emoji);
+
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = "Delete";
+                        deleteButton.className = "delete-button";
+                        deleteButton.onclick = function() {
+                            emojiGalerie.removeChild(container);
+                        }
+
+                        const copyLinkButton = document.createElement('button');
+                        copyLinkButton.textContent = "Copy URL";
+                        copyLinkButton.className = "copy-link-button";
+                        copyLinkButton.onclick = function() {
+                            copyToClipboard(link);
+                        }
+
+                        const container = document.createElement('div');
+                        container.appendChild(a);
+                        container.appendChild(deleteButton);
+                        container.appendChild(copyLinkButton);
+
+                        emojiGalerie.appendChild(container);
+                    });
+                };
+                reader.readAsText(file);
+            }
+        }
+
+
+        function deleteAllImages() {
+            const emojiGalerie = document.getElementById('emojiGalerie');
+            emojiGalerie.innerHTML = '';
+        }
+    </script>
+</body>
+</html>
